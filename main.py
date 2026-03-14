@@ -3,6 +3,7 @@ from typing import Protocol
 from dataclasses import dataclass
 
 from goods.scrapped_goods import WildberriesScrappedGoods
+from goods.fk_goods import FakeGoods
 
 @dataclass(slots=True)
 class ProductPrint:
@@ -21,7 +22,7 @@ class ProductPrint:
     quantity: int
 
 
-WildberriesScrappedGoods\
+FakeGoods\
     .new("пальто из натуральной шерсти")\
     .then(lambda goods: goods.print())\
     .then(print)\

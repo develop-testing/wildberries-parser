@@ -23,14 +23,14 @@ class GoodsOfhQuery(Goods):
                 if not isinstance(value, int):
                     raise ValueError("product id is not int")
 
-                if len(value) > 256:
+                if value > 99999999999:
                     raise ValueError("product id is too long")
 
 
     def print(self) -> GoodsPrint:
         printout = GoodsPrint(
             query=self.query,
-            count=len(self.data),
+            count=len(self.products),
             products=self.products
         )
 
