@@ -11,5 +11,8 @@ class GoodsPrint:
 
 
 class Goods(Protocol):
+    def query(self) -> str:
+        pass
+
     def print(self) -> GoodsPrint:
         pass

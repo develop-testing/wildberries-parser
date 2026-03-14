@@ -4,6 +4,7 @@ from dataclasses import dataclass
 
 from goods.scrapped_goods import WildberriesScrappedGoods
 from goods.fk_goods import FakeGoods
+from goods.json_chached_goods import JsonFileCachedGoods
 
 @dataclass(slots=True)
 class ProductPrint:
@@ -21,9 +22,9 @@ class ProductPrint:
     sizes: list[str]
     quantity: int
 
-
-FakeGoods\
-    .new("пальто из натуральной шерсти")\
-    .then(lambda goods: goods.print())\
-    .then(print)\
-    .catch(print)
+print(
+    JsonFileCachedGoods.new(
+        FakeGoods.new("пальто из натуральной шерсти"),
+        "cache/goods.json"
+    ).print()
+)

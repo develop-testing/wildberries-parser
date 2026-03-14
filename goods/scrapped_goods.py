@@ -12,6 +12,11 @@ from .goods_of_query import GoodsOfhQuery
 class WildberriesScrappedGoods(Goods):
     origin: Goods
 
+
+    def query(self) -> str:
+        return self.origin.query()
+
+
     def print(self) -> GoodsPrint:
         return self.origin.print()
 

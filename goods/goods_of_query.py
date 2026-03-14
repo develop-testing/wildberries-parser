@@ -8,14 +8,14 @@ from .goods import GoodsPrint
 
 @dataclass(slots=True, frozen=True)
 class GoodsOfhQuery(Goods):
-    query: str
+    query_string: str
     products: list[int]
 
     def __post_init__(self):
-        if len(self.query) > 500:
+        if len(self.query_string) > 500:
             raise ValueError("query of goods is too long")
         
-        if not isinstance(self.query, str):
+        if not isinstance(self.query_string, str):
             raise ValueError("query of goods is not string")
         
         if self.products:
@@ -27,9 +27,13 @@ class GoodsOfhQuery(Goods):
                     raise ValueError("product id is too long")
 
 
+    def query(self) -> str:
+        return self.query_string
+
+
     def print(self) -> GoodsPrint:
         printout = GoodsPrint(
-            query=self.query,
+            query=self.query(),
             count=len(self.products),
             products=self.products
         )
