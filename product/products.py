@@ -3,8 +3,13 @@ from typing import Protocol
 from dataclasses import dataclass, asdict
 
 
+from dataclasses import dataclass, field
+from typing import ClassVar
+
 @dataclass(slots=True)
 class ProductData:
+    articul: str
+    name: str
     descr: str
     images: list[str]
     characters: list[str]
@@ -16,30 +21,29 @@ class ProductData:
     seller_link: str
     sizes: list[str]
     quantity: int
-
+    
     @staticmethod
-    def empty() -> ProductData:
+    def empty():
         return ProductData(
+            articul="",
+            name="",
             descr="",
-            images="",
-            characters="",
-            raiting="",
-            reviews_count="",
+            images=[],
+            characters=[],
+            raiting=0,
+            reviews_count=0,
             link="",
             price="",
             seller_name="",
             seller_link="",
-            sizes="",
-            quantity="",
+            sizes=[],
+            quantity=0
         )
 
 
-@dataclass(slots=True)
-class ProductPrint(ProductData):
-    articul: str
-    name: str
-
-
 class Products(Protocol):
-    def print(self) -> ProductPrint:
+    def with_data(self, key: str, value: str) -> Products:
+        pass
+
+    def print(self) -> ProductData:
         pass

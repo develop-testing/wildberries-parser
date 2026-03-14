@@ -6,7 +6,7 @@ from goods.scrapped_goods import WildberriesScrappedGoods
 from goods.fk_goods import FakeGoods
 from goods.json_chached_goods import JsonFileCachedGoods
 
-from product.product import Product, ProductData
+from product.fk_product import FakeProduct
 
 goods = JsonFileCachedGoods.new(
     WildberriesScrappedGoods.new("пальто из натуральной шерсти"),
@@ -17,6 +17,7 @@ printout = goods.print()
 
 for id in printout.products:
     print(
-        Product(id, "", ProductData.empty())
-        .print()
+        FakeProduct
+            .new(id)
+            .print()
     )

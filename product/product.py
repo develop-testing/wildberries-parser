@@ -4,13 +4,11 @@ from dataclasses import dataclass, asdict
 
 from .products import Products
 from .products import ProductData
-from .products import ProductPrint
 
 
 @dataclass(slots=True, frozen=True)
 class Product(Products):
     number: int
-    name: str
     data: ProductData
 
     def __post_init__(self):      
@@ -25,19 +23,6 @@ class Product(Products):
                     raise ValueError('value exceeds 256 characters')
 
 
-    def print(self) -> ProductPrint:
-        return ProductPrint(
-            articul=self.number,
-            name=self.name,
-            descr="",
-            images="",
-            characters="",
-            raiting="",
-            reviews_count="",
-            link="",
-            price="",
-            seller_name="",
-            seller_link="",
-            sizes="",
-            quantity="",
-        )
+    def print(self) -> ProductData:
+        self.data.articul = self.number
+        return self.data
