@@ -17,7 +17,7 @@ class JsonFileCachedGoods(Goods):
         return self.origin.query()
 
     def print(self) -> GoodsPrint:
-        if (not os.path.exists(self.file_path)) or os.path.getsize(self.file_path) == 0:
+        if not os.path.exists(self.file_path):
             printout = self.origin.print()
 
             with open(self.file_path, "w", encoding="utf-8") as f:

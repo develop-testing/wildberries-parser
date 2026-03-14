@@ -22,9 +22,19 @@ class ProductPrint:
     sizes: list[str]
     quantity: int
 
+#WildberriesScrappedGoods.new("пальто из натуральной шерсти"),
+
+print(
+    JsonFileCachedGoods.new(
+        FakeGoods.new("пальто из натуральной шерсти", 9999),
+        "cache/goods.json"
+    ).print()
+)
+
+"""
 print(
     JsonFileCachedGoods.new(
         FakeGoods.new("пальто из натуральной шерсти"),
         "cache/goods.json"
     ).print()
-)
+)"""

@@ -12,39 +12,36 @@ from .goods_of_query import GoodsOfhQuery
 class WildberriesScrappedGoods(Goods):
     origin: Goods
 
-
     def query(self) -> str:
         return self.origin.query()
-
 
     def print(self) -> GoodsPrint:
         return self.origin.print()
 
     @staticmethod
-    def new(query: str) -> Promise[WildberriesScrappedGoods]:
-        def executor(resolve, reject):
+    def new(query: str) -> WildberriesScrappedGoods:
+        try:
+            products = []
+
             options = ChromiumOptions()
             options.headless(True)  # Это скроет окно браузера
             page = ChromiumPage(addr_or_opts=options)
 
-            url = "https://www.wildberries.ru/__internal/u-search/exactmatch/ru/common/v18/search?ab_testing=false&appType=1&curr=rub&dest=-5818883&hide_vflags=4294967296&lang=ru&page=1&query=пальто из натуральной шерсти&resultset=catalog&sort=popular&spp=30&suppressSpellcheck=false"
+            url = "https://www.wildberries.ru/__internal/u-search/exactmatch/ru/common/v18/search?ab_testing=false&appType=1&curr=rub&dest=-5818883&hide_vflags=4294967296&lang=ru&page=1&query=" + str(query) +"&resultset=catalog&sort=popular&spp=30&suppressSpellcheck=false"
 
-            try:
-                page.get(url)
+        
+            page.get(url)
 
-                items = page.json["products"]
+            import json
 
-                for item in items:
-                    print(item)
-                    break
-            finally:
-                page.quit()
+            items = page.json["products"]
 
-        return (
-            Promise(executor)
-            .then(lambda data:
-                WildberriesScrappedGoods(
-                    GoodsOfhQuery(query, [])
-                )
-            )
-        )
+            for item in items:
+                products.append(item['id'])
+            
+            print('test')
+
+            return GoodsOfhQuery(query, products)
+
+        finally:
+            page.quit()

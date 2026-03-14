@@ -9,18 +9,25 @@ from .goods import GoodsPrint
 from .goods_of_query import GoodsOfhQuery
 
 
-@dataclass(slots=True, frozen=True)
+@dataclass(slots=True)
 class FakeGoods(Goods):
     origin: Goods
+    limit: int
 
     def query(self) -> str:
         return self.origin.query()
 
     def print(self) -> GoodsPrint:
+        self.origin = GoodsOfhQuery(
+            self.origin.query(),
+            [random.randint(111111, 999999) for i in range(self.limit)]
+        )
+
         return self.origin.print()
     
     @staticmethod
-    def new(query: str) -> Promise[FakeGoods]:
-        return GoodsOfhQuery(query, [
-            random.randint(111111, 999999) for i in range(9999)
-        ])
+    def new(query: str, limit: int) -> Promise[FakeGoods]:
+        return FakeGoods(
+            GoodsOfhQuery(query, []),
+            limit
+        )
