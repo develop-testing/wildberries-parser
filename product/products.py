@@ -42,8 +42,5 @@ class ProductData:
 
 
 class Products(Protocol):
-    def with_data(self, key: str, value: str) -> Products:
-        pass
-
     def print(self) -> ProductData:
         pass
