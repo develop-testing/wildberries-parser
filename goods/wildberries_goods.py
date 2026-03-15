@@ -10,7 +10,7 @@ from .goods_of_query import GoodsOfhQuery
 
 
 @dataclass(slots=True)
-class WildberriesScrappedGoods(Goods):
+class WildberriesGoods(Goods):
     origin: Goods
 
     def query(self) -> str:
@@ -56,5 +56,5 @@ class WildberriesScrappedGoods(Goods):
         return self.origin.print()
 
     @staticmethod
-    def new(query: str) -> WildberriesScrappedGoods:
-        return WildberriesScrappedGoods(GoodsOfhQuery(query, []))
+    def new(query: str) -> WildberriesGoods:
+        return WildberriesGoods(GoodsOfhQuery(query, []))

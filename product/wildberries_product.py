@@ -1,6 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
-from DrissionPage import ChromiumPage, ChromiumOptions, SessionPage, SessionOptions # type: ignore
+from DrissionPage import ChromiumPage, ChromiumOptions, SessionPage, SessionOptions  # type: ignore
 from time import sleep
 
 from .products import Products
@@ -34,20 +34,26 @@ class WildberriesProduct(Products):
 
             page = SessionPage()
 
-            page.session.headers.update({
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
-                'Referer': 'https://www.wildberries.ru',
-                'Accept': '*/*',
-                'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
-            })
+            page.session.headers.update(
+                {
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+                    "Referer": "https://www.wildberries.ru",
+                    "Accept": "*/*",
+                    "Accept-Language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+                }
+            )
 
-            page.session.cookies.update({'x_wbaas_token': self.x_wbaas_token})
+            page.session.cookies.update({"x_wbaas_token": self.x_wbaas_token})
 
-            page.get(f"https://mns-basket-cdn-02.geobasket.net/vol{vol_num}/part{part_num}/{articul_str}/info/ru/card.json")
+            page.get(
+                f"https://mns-basket-cdn-02.geobasket.net/vol{vol_num}/part{part_num}/{articul_str}/info/ru/card.json"
+            )
 
             first_data = page.json
 
-            page.get(f"https://www.wildberries.ru/__internal/u-card/cards/v4/detail?appType=1&curr=rub&dest=-1257786&spp=30&hide_vflags=4294967296&ab_testing=false&lang=ru&nm={articul_str}")
+            page.get(
+                f"https://www.wildberries.ru/__internal/u-card/cards/v4/detail?appType=1&curr=rub&dest=-1257786&spp=30&hide_vflags=4294967296&ab_testing=false&lang=ru&nm={articul_str}"
+            )
 
             second_data = page.json
 
@@ -97,7 +103,4 @@ class WildberriesProduct(Products):
 
     @staticmethod
     def new(id: int, x_wbaas_token: str) -> WildberriesProduct:
-        return WildberriesProduct(
-            Product(id, ProductData.empty()),
-            x_wbaas_token
-        )
+        return WildberriesProduct(Product(id, ProductData.empty()), x_wbaas_token)
