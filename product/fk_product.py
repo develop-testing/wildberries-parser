@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 import random
+from time import sleep
 
 
 from .products import Products
@@ -30,6 +31,8 @@ class FakeProduct(Products):
         data.seller_link = "https://fake-shop.ru/seller/" + str(random.randint(1, 100))
         data.sizes = ["S", "M", "L", "XL"]
         data.quantity = random.randint(0, 50)
+
+        sleep(4)
 
         return data
 
