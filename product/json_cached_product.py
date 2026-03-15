@@ -28,12 +28,12 @@ class JsonCachedProduct(Products):
             return printout
 
         with open(self.file_path, "r", encoding="utf-8") as f:
-            return json.load(f)
+            data = json.load(f)
 
         return ProductData(
             articul=data["articul"],
             name=data["name"],
-            descr=data["escr"],
+            descr=data["descr"],
             images=data["images"],
             characters=data["characters"],
             raiting=data["raiting"],
