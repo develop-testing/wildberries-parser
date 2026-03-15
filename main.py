@@ -52,14 +52,14 @@ class WildberriesCatalog:
             try:
                 return ConsoleLogProduct(
                     JsonCachedProduct(
-                        FakeProduct.new(product_id),
+                        WildberriesProduct.new(product_id, self.x_wbaas_token),
                         f"cache/products/product_{product_id}.json",
                     )
                 ).print()
             except Exception as e:
                 return ProductData.empty()
 
-        pack_size = 40
+        pack_size = 100
 
         for i in range(0, len(printout.products), pack_size):
             pack = printout.products[i : i + pack_size]
