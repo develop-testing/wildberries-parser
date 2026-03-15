@@ -89,11 +89,11 @@ class WildberriesCatalog:
                 reviews=str(printout.reviews_count),
             )
 
-        PandasDataTable.new("result/all_product.xlsx").update(
+        PandasDataTable.new(self.main_table_path).update(
             [map_printout_to_datarow(printout) for printout in main_products]
         )
 
-        PandasDataTable.new("result/filtered_product.xlsx").update(
+        PandasDataTable.new(self.second_table_path).update(
             [map_printout_to_datarow(printout) for printout in second_products]
         )
 
