@@ -46,14 +46,14 @@ class DataTable(DataTables):
     def update(self, rows: list[DataTableRow]) -> DataTable:
         return DataTable(self.name, self.rows + rows)
 
-table = DataTable("simple_products", [])
+table = DataTable("all_products", [])
 
 products_to_update = []
 
-for id in [6489086, 11275582, 481144243]:
+for id in printout.products:
     products_to_update.append(
         JsonCachedProduct(
-            WildberriesProduct.new(id),
+            FakeProduct.new(id),
             f"cache/products/product_{id}.json"
         )
         .print()

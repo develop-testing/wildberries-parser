@@ -19,7 +19,7 @@ class FakeProduct(Products):
         data.name = "Фейковый товар " + str(random.randint(1, 100))
         data.descr = "Описание фейкового товара для тестирования"
         data.images = ["fake_img1.jpg", "fake_img2.jpg"]
-        data.characters = ["характеристика 1", "характеристика 2"]
+        data.characters = [{"name": f"тест-{i}", "value": f"тест-{i}"} for i in range(0, 20)]
         data.raiting = random.randint(1, 5)
         data.reviews_count = random.randint(0, 1000)
         data.link = "https://fake-shop.ru/product/" + str(random.randint(1000, 9999))

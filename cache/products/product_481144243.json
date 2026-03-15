@@ -1,169 +1,104 @@
 {
-    "articul": 481144243,
-    "name": "Пальто шерстяное демисезонное длинное",
-    "descr": "Стильное женское пальто-идеальный выбор для весеннего сезона.  Благодаря классическому прямому силуэту и длине до пола изделие подходит как для повседневных прогулок, так и для деловых встреч. Мягкая драповая ткань с добавлением натуральной шерсти делает модель особенно теплой, легкой и приятной на ощупь. Натуральный материал обеспечивает защиту в холодную погоду, а плотная подкладка сохраняет тепло внутри.\nМодное решение весны 2026 — лаконичный английский воротник и аккуратные пуговицы на передней части изделия. Такой вариант демисезонного пальто отлично смотрится в сочетании с поясом: вы можете подчеркнуть талию или оставить силуэт оверсайз, что актуально для беременных девушек  и любителей свободного стиля. Рукава выполнены с манжетами, что придает образу нотки классики и строгости. Универсальное решение для больших размеров прекрасно сочетается с различными стилями одежды — от делового до городского casual и old money.\nЭто не просто вещь – это ваш новый вдохновляющий образ, который покоряет!",
+    "articul": "611438",
+    "name": "Фейковый товар 53",
+    "descr": "Описание фейкового товара для тестирования",
     "images": [
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/1.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/2.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/3.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/4.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/5.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/6.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/7.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/8.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/9.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/10.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/11.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/12.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/13.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/14.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/15.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/16.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/17.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/18.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/19.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/20.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/21.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/22.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/23.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/24.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/25.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/26.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/27.webp",
-        "https://mns-basket-cdn-02.geobasket.net/vol4811/part481144/481144243/images/big/28.webp"
+        "fake_img1.jpg",
+        "fake_img2.jpg"
     ],
     "characters": [
         {
-            "name": "Состав",
-            "value": "шерсть 80%; полиэстер 15%; Эластан 5%",
-            "charc_type": 1
+            "name": "тест-0",
+            "value": "тест-0"
         },
         {
-            "name": "Цвет",
-            "value": "серый",
-            "charc_type": 1,
-            "is_variable": true,
-            "variable_values": [
-                "серый"
-            ],
-            "variable_value_IDs": [
-                20214430
-            ]
+            "name": "тест-1",
+            "value": "тест-1"
         },
         {
-            "name": "Пол",
-            "value": "Женский",
-            "charc_type": 1
+            "name": "тест-2",
+            "value": "тест-2"
         },
         {
-            "name": "Сезон",
-            "value": "демисезон",
-            "charc_type": 1
+            "name": "тест-3",
+            "value": "тест-3"
         },
         {
-            "name": "Вид застежки",
-            "value": "пуговицы; пояс",
-            "charc_type": 1
+            "name": "тест-4",
+            "value": "тест-4"
         },
         {
-            "name": "Рост модели на фото",
-            "value": "175 см",
-            "charc_type": 4
+            "name": "тест-5",
+            "value": "тест-5"
         },
         {
-            "name": "Параметры модели на фото (ОГ-ОТ-ОБ)",
-            "value": "83-60-91",
-            "charc_type": 1
+            "name": "тест-6",
+            "value": "тест-6"
         },
         {
-            "name": "Размер на модели",
-            "value": "42",
-            "charc_type": 1
+            "name": "тест-7",
+            "value": "тест-7"
         },
         {
-            "name": "Утеплитель",
-            "value": "без утеплителя",
-            "charc_type": 1
+            "name": "тест-8",
+            "value": "тест-8"
         },
         {
-            "name": "Температурный режим",
-            "value": "от -5°C до +15°С",
-            "charc_type": 1
+            "name": "тест-9",
+            "value": "тест-9"
         },
         {
-            "name": "Материал подкладки",
-            "value": "вискоза 100%",
-            "charc_type": 1
+            "name": "тест-10",
+            "value": "тест-10"
         },
         {
-            "name": "Покрой",
-            "value": "прямой",
-            "charc_type": 1
+            "name": "тест-11",
+            "value": "тест-11"
         },
         {
-            "name": "Тип карманов",
-            "value": "прорезные",
-            "charc_type": 1
+            "name": "тест-12",
+            "value": "тест-12"
         },
         {
-            "name": "Тип рукава",
-            "value": "длинные",
-            "charc_type": 1
+            "name": "тест-13",
+            "value": "тест-13"
         },
         {
-            "name": "Опции капюшона",
-            "value": "без капюшона",
-            "charc_type": 1
+            "name": "тест-14",
+            "value": "тест-14"
         },
         {
-            "name": "Опции опушки",
-            "value": "без опушки",
-            "charc_type": 1
+            "name": "тест-15",
+            "value": "тест-15"
         },
         {
-            "name": "Мех опушки/отделки",
-            "value": "без меха",
-            "charc_type": 1
+            "name": "тест-16",
+            "value": "тест-16"
         },
         {
-            "name": "Декоративные элементы",
-            "value": "пуговицы; шинель; пояс",
-            "charc_type": 1
+            "name": "тест-17",
+            "value": "тест-17"
         },
         {
-            "name": "Особенности модели",
-            "value": "двубортная; со шлицей; ветрозащитная планка",
-            "charc_type": 1
+            "name": "тест-18",
+            "value": "тест-18"
         },
         {
-            "name": "Уход за вещами",
-            "value": "деликатная химическая чистка; допускается отпаривание",
-            "charc_type": 1
-        },
-        {
-            "name": "Комплектация",
-            "value": "Пальто женское-1шт; Пояс-1шт; вешалка-1шт",
-            "charc_type": 1
-        },
-        {
-            "name": "Страна производства",
-            "value": "Россия",
-            "charc_type": 1
+            "name": "тест-19",
+            "value": "тест-19"
         }
     ],
-    "raiting": 5,
-    "reviews_count": 46,
-    "link": "https://www.wildberries.ru/catalog/481144243/detail.aspx",
-    "price": 9132,
-    "seller_name": "TRIUMF ST",
-    "seller_link": "https://www.wildberries.ru/brands/TRIUMF ST",
+    "raiting": 1,
+    "reviews_count": 633,
+    "link": "https://fake-shop.ru/product/8160",
+    "price": "6075 руб",
+    "seller_name": "Фейковый продавец",
+    "seller_link": "https://fake-shop.ru/seller/55",
     "sizes": [
-        "42",
-        "44",
-        "46",
-        "48",
-        "50",
-        "52"
+        "S",
+        "M",
+        "L",
+        "XL"
     ],
-    "quantity": 38
+    "quantity": 9
 }
