@@ -34,9 +34,12 @@ class DataTableRow:
     raiting: str
     reviews: str
 
+class DataTables(Protocol):
+    def update(self, rows: list[DataTableRow]) -> DataTables:
+        pass
 
 @dataclass(slots=True, frozen=True)
-class DataTable:
+class DataTable(DataTables):
     name: str
     rows: list
 
