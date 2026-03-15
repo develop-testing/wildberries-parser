@@ -86,7 +86,8 @@ class WildberriesCatalog:
                 descr=printout.descr,
                 images=", ".join(printout.images),
                 characters=", ".join(
-                    f"{item['name']}: {item['value']}" for item in printout.characters
+                    f"{item.get('name', 'Неизвестно')}: {item.get('value', '-')}" 
+                    for item in printout.characters
                 ),
                 seller_name=printout.seller_name,
                 seller_link=printout.seller_link,
