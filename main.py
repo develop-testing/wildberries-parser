@@ -17,17 +17,5 @@ goods = JsonFileCachedGoods.new(
 
 printout = goods.print()
 
-import time
-start = time.time()
-
-with ThreadPoolExecutor(max_workers=3) as executor:
-    futures = [
-        executor.submit(WildberriesProduct.new(id).print)
-        for id in [6489086, 11275582, 481144243]
-    ]
-
-    for future in as_completed(futures):
-        result = future.result()
-        print(result)
-
-print(f"Общее время: {time.time() - start:.2f} сек")
+for id in [6489086, 11275582, 481144243]:
+   print(WildberriesProduct.new(id).print())

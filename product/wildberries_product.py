@@ -33,7 +33,12 @@ class WildberriesProduct(Products):
 
         
             options = ChromiumOptions()
-            options.headless(True)  # hide window
+            options.set_argument('--no-sandbox')
+            options.set_argument('--disable-blink-features=AutomationControlled')
+            options.set_user_agent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36')
+            options.set_argument('--disable-notifications')
+            options.set_argument('--disable-extensions')
+            options.set_argument('--headless=new')
             web_page = ChromiumPage(addr_or_opts=options)
         
             url = f"https://mns-basket-cdn-02.geobasket.net/vol{vol_num}/part{part_num}/{articul_str}/info/ru/card.json"
@@ -42,9 +47,8 @@ class WildberriesProduct(Products):
 
             first_data = web_page.json
 
-            web_page\
-                .get(f"https://www.wildberries.ru/__internal/u-card/cards/v4/detail?appType=1&curr=rub&dest=-1257786&spp=30&hide_vflags=4294967296&ab_testing=false&lang=ru&nm={articul_str}")
-            
+            web_page.get(f"https://www.wildberries.ru/__internal/u-card/cards/v4/detail?appType=1&curr=rub&dest=-1257786&spp=30&hide_vflags=4294967296&ab_testing=false&lang=ru&nm={articul_str}")
+
             second_data = web_page.json
 
             max_images = 99
