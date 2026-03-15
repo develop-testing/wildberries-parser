@@ -26,13 +26,11 @@ class FakeProduct(Products):
         data.raiting = random.randint(1, 5)
         data.reviews_count = random.randint(0, 1000)
         data.link = "https://fake-shop.ru/product/" + str(random.randint(1000, 9999))
-        data.price = str(random.randint(500, 10000)) + " руб"
+        data.price = str(random.randint(500, 10000))
         data.seller_name = "Фейковый продавец"
         data.seller_link = "https://fake-shop.ru/seller/" + str(random.randint(1, 100))
         data.sizes = ["S", "M", "L", "XL"]
         data.quantity = random.randint(0, 50)
-
-        sleep(4)
 
         return data
 

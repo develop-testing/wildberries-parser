@@ -14,7 +14,7 @@ class WildberriesProduct(Products):
     x_wbaas_token: str
 
     def print(self) -> ProductData:
-        #try:
+        try:
             data = self.origin.print()
 
             articul_str = str(data.articul)
@@ -92,8 +92,8 @@ class WildberriesProduct(Products):
 
             return data
 
-        #except Exception as e:
-        #    return data
+        except Exception as e:
+            return data
 
     @staticmethod
     def new(id: int, x_wbaas_token: str) -> WildberriesProduct:
