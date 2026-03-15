@@ -22,18 +22,16 @@ class JsonFileCachedGoods(Goods):
 
             with open(self.file_path, "w", encoding="utf-8") as f:
                 json.dump(printout.products, f, ensure_ascii=False)
-            
+
             return printout
 
         with open(self.file_path, "r", encoding="utf-8") as f:
             products = json.load(f)
 
         return GoodsPrint(
-            query=self.origin.query(),
-            count=len(products),
-            products=products
+            query=self.origin.query(), count=len(products), products=products
         )
-    
+
     @staticmethod
     def new(origin: Goods, file_path: str) -> JsonFileCachedGoods:
         return JsonFileCachedGoods(origin, file_path)

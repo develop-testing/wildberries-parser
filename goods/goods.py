@@ -7,7 +7,7 @@ from dataclasses import dataclass
 class GoodsPrint:
     query: str
     count: int
-    products: str
+    products: list[int]
 
 
 class Goods(Protocol):

@@ -7,7 +7,7 @@ https://www.wildberries.ru/__internal/u-card/cards/v4/detail?appType=1&curr=rub&
 
 """
 
-from DrissionPage import ChromiumPage, ChromiumOptions
+from DrissionPage import ChromiumPage, ChromiumOptions  # type: ignore
 import json
 
 # 1. Создаем настройки и включаем режим "без окна"
@@ -27,7 +27,7 @@ try:
     for item in items:
         print(item)
         break
-    
-    
+
+
 finally:
     page.quit()

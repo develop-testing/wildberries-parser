@@ -20,14 +20,11 @@ class FakeGoods(Goods):
     def print(self) -> GoodsPrint:
         self.origin = GoodsOfhQuery(
             self.origin.query(),
-            [random.randint(111111, 999999) for i in range(self.limit)]
+            [random.randint(111111, 999999) for i in range(self.limit)],
         )
 
         return self.origin.print()
-    
+
     @staticmethod
-    def new(query: str, limit: int) -> Promise[FakeGoods]:
-        return FakeGoods(
-            GoodsOfhQuery(query, []),
-            limit
-        )
+    def new(query: str, limit: int) -> FakeGoods:
+        return FakeGoods(GoodsOfhQuery(query, []), limit)

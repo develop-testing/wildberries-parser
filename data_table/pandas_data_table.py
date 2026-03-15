@@ -4,7 +4,7 @@ import pandas as pd
 import os
 
 
-from .data_tables import  DataTables
+from .data_tables import DataTables
 from .data_tables import DataTableRow
 from .data_table import DataTable
 
@@ -17,7 +17,7 @@ class PandasDataTable(DataTables):
     def update(self, rows: list[DataTableRow]) -> PandasDataTable:
         if os.path.exists(self.file_path):
             existing_df = pd.read_excel(self.file_path)
-            data_list = existing_df.to_dict(orient='records')
+            data_list = existing_df.to_dict(orient="records")
 
             stored_data = [
                 DataTableRow(
@@ -46,14 +46,14 @@ class PandasDataTable(DataTables):
         df.to_excel(self.file_path, index=False)
 
         return PandasDataTable(new_origin, self.file_path)
-    
+
     def print(self) -> list[DataTableRow]:
         data = self.origin.print()
 
         if not data:
             if os.path.exists(self.file_path):
                 existing_df = pd.read_excel(self.file_path)
-                data_list = existing_df.to_dict(orient='records')
+                data_list = existing_df.to_dict(orient="records")
 
                 data = [
                     DataTableRow(
@@ -75,10 +75,9 @@ class PandasDataTable(DataTables):
                 ]
 
                 self.origin = self.origin.update(data)
-        
 
         return data
-    
+
     @staticmethod
     def new(file_path: str) -> PandasDataTable:
         return PandasDataTable(DataTable([]), file_path)

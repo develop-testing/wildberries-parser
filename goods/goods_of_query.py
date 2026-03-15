@@ -11,13 +11,13 @@ class GoodsOfhQuery(Goods):
     query_string: str
     products: list[int]
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if len(self.query_string) > 500:
             raise ValueError("query of goods is too long")
-        
+
         if not isinstance(self.query_string, str):
             raise ValueError("query of goods is not string")
-        
+
         if self.products:
             for value in self.products:
                 if not isinstance(value, int):
@@ -26,16 +26,12 @@ class GoodsOfhQuery(Goods):
                 if value > 99999999999:
                     raise ValueError("product id is too long")
 
-
     def query(self) -> str:
         return self.query_string
 
-
     def print(self) -> GoodsPrint:
         printout = GoodsPrint(
-            query=self.query(),
-            count=len(self.products),
-            products=self.products
+            query=self.query(), count=len(self.products), products=self.products
         )
 
         return printout

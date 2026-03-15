@@ -6,13 +6,14 @@ from dataclasses import dataclass, asdict
 from dataclasses import dataclass, field
 from typing import ClassVar
 
+
 @dataclass(slots=True)
 class ProductData:
     articul: str
     name: str
     descr: str
     images: list[str]
-    characters: list[str]
+    characters: list[dict[str, str]]
     raiting: int
     reviews_count: int
     link: str
@@ -21,9 +22,9 @@ class ProductData:
     seller_link: str
     sizes: list[str]
     quantity: int
-    
+
     @staticmethod
-    def empty():
+    def empty() -> ProductData:
         return ProductData(
             articul="",
             name="",
@@ -37,7 +38,7 @@ class ProductData:
             seller_name="",
             seller_link="",
             sizes=[],
-            quantity=0
+            quantity=0,
         )
 
 

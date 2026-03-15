@@ -10,11 +10,11 @@ class DataTableRow:
     name: str
     price: str
     descr: str
-    images: list[str]
-    characters: list[str]
+    images: str
+    characters: str
     seller_name: str
     seller_link: str
-    sizes: list[str]
+    sizes: str
     quantity: str
     raiting: str
     reviews: str

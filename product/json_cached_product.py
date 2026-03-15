@@ -24,7 +24,7 @@ class JsonCachedProduct(Products):
 
             with open(self.file_path, "w", encoding="utf-8") as f:
                 json.dump(asdict(printout), f, ensure_ascii=False, indent=4)
-            
+
             return printout
 
         with open(self.file_path, "r", encoding="utf-8") as f:
@@ -45,7 +45,7 @@ class JsonCachedProduct(Products):
             sizes=data["sizes"],
             quantity=data["quantity"],
         )
-    
+
     @staticmethod
     def new(origin: Products, file_path: str) -> JsonCachedProduct:
         return JsonCachedProduct(origin, file_path)

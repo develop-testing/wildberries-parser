@@ -14,10 +14,8 @@ from product.json_cached_product import JsonCachedProduct
 from data_table.pandas_data_table import PandasDataTable
 from data_table.data_tables import DataTableRow
 
-
 goods = JsonFileCachedGoods.new(
-    WildberriesScrappedGoods.new("пальто из натуральной шерсти"),
-    "cache/goods.json"
+    WildberriesScrappedGoods.new("пальто из натуральной шерсти"), "cache/goods.json"
 )
 
 
@@ -29,15 +27,12 @@ products_to_update = []
 for id in printout.products:
     products_to_update.append(
         JsonCachedProduct(
-            FakeProduct.new(id),
-            f"cache/products/product_{id}.json"
-        )
-        .print()
+            FakeProduct.new(id), f"cache/products/product_{id}.json"
+        ).print()
     )
 
-table = PandasDataTable\
-    .new("result/all_product.xlsx")\
-    .update([
+table = PandasDataTable.new("result/all_product.xlsx").update(
+    [
         DataTableRow(
             product_link=printout.link,
             articul=printout.articul,
@@ -45,13 +40,16 @@ table = PandasDataTable\
             price=printout.price,
             descr=printout.descr,
             images=", ".join(printout.images),
-            characters=", ".join(f"{item['name']}: {item['value']}" for item in printout.characters),
+            characters=", ".join(
+                f"{item['name']}: {item['value']}" for item in printout.characters
+            ),
             seller_name=printout.seller_name,
             seller_link=printout.seller_link,
             sizes=", ".join(printout.sizes),
-            quantity=printout.quantity,
-            raiting=printout.raiting,
-            reviews=printout.reviews_count,
+            quantity=str(printout.quantity),
+            raiting=str(printout.raiting),
+            reviews=str(printout.reviews_count),
         )
         for printout in products_to_update
-    ])
+    ]
+)
