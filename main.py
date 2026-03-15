@@ -20,6 +20,7 @@ from data_table.data_tables import DataTableRow
 class WildberriesCatalog:
     main_table_path: str
     second_table_path: str
+    x_wbaas_token: str
 
     def __post_init__(self) -> None:
         if len(self.main_table_path) > 256:
@@ -28,8 +29,13 @@ class WildberriesCatalog:
         if len(self.second_table_path) > 256:
             raise ValueError("second table name is too long")
 
+        if len(self.x_wbaas_token) > 600:
+            raise ValueError("second table name is too long")
+
     def scrab_of(self, query: str) -> None:
-        goods = JsonFileCachedGoods.new(WildberriesGoods.new(query), "cache/goods.json")
+        goods = JsonFileCachedGoods.new(
+            WildberriesGoods.new(query, self.x_wbaas_token), "cache/goods.json"
+        )
 
         printout = goods.print()
 
@@ -92,6 +98,8 @@ class WildberriesCatalog:
         )
 
 
-WildberriesCatalog("result/all_product.xlsx", "result/filtered_product.xlsx").scrab_of(
-    "пальто из натуральной шерсти"
-)
+WildberriesCatalog(
+    "result/all_product.xlsx",
+    "result/filtered_product.xlsx",
+    "1.1000.3c0234109f2f4703b35e7303f1c59d5a.MTV8OTUuMjYuNjQuMjI5fE1vemlsbGEvNS4wIChYMTE7IExpbnV4IHg4Nl82NDsgcnY6MTQwLjApIEdlY2tvLzIwMTAwMTAxIEZpcmVmb3gvMTQwLjB8MTc3NDYwNzU0MHxyZXVzYWJsZXwyfGV5Sm9ZWE5vSWpvaUluMD18MHwzfDE3NzQwMDI3NDB8MQ==.MEQCIHbC2hNqZY7t0TB3PIRdJ9DUJAcCfL5S7hnyMmFToN9dAiA51lbY7zSowsJJqAz8UZFqWDbdHsNgYWcZ2uY1vQ6v3A==",
+).scrab_of("пальто из натуральной шерсти")

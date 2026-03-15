@@ -1,6 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
-from DrissionPage import ChromiumPage, ChromiumOptions  # type: ignore
+from DrissionPage import SessionPage  # type: ignore
 from promise import Promise
 from time import sleep
 
@@ -12,49 +12,57 @@ from .goods_of_query import GoodsOfhQuery
 @dataclass(slots=True)
 class WildberriesGoods(Goods):
     origin: Goods
+    x_wbaas_token: str
+
+    def __post_init__(self) -> None:
+        if len(self.x_wbaas_token) > 600:
+            raise ValueError("second table name is too long")
 
     def query(self) -> str:
         return self.origin.query()
 
     def print(self) -> GoodsPrint:
-        try:
-            query = self.origin.query()
-            products = []
-            page_number = 1
-            max_pages = 999
+        query = self.origin.query()
+        products = []
+        page_number = 1
+        max_pages = 999
 
-            options = ChromiumOptions()
-            options.headless(True)  # hide window
-            web_page = ChromiumPage(addr_or_opts=options)
+        page = SessionPage()
 
-            while page_number <= max_pages:
-                web_page.get(
-                    "https://www.wildberries.ru/__internal/u-search/exactmatch/ru/common/v18/search?ab_testing=false&appType=1&curr=rub&dest=-5818883&hide_vflags=4294967296&lang=ru&page="
-                    + str(page_number)
-                    + "&query="
-                    + str(query)
-                    + "&resultset=catalog&sort=popular&spp=30&suppressSpellcheck=false"
-                )
+        page.session.headers.update(
+            {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+                "Referer": "https://www.wildberries.ru",
+                "Accept": "*/*",
+                "Accept-Language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+            }
+        )
 
-                json_result = web_page.json
+        page.session.cookies.update({"x_wbaas_token": self.x_wbaas_token})
 
-                if not "products" in json_result:
-                    break
+        while page_number <= max_pages:
+            page.get(
+                "https://www.wildberries.ru/__internal/u-search/exactmatch/ru/common/v18/search?ab_testing=false&appType=1&curr=rub&dest=-5818883&hide_vflags=4294967296&lang=ru&page="
+                + str(page_number)
+                + "&query="
+                + str(query)
+                + "&resultset=catalog&sort=popular&spp=30&suppressSpellcheck=false"
+            )
 
-                for item in web_page.json["products"]:
-                    products.append(item["id"])
+            json_result = page.json
 
-                page_number += 1
+            if not "products" in json_result:
+                break
 
-                sleep(0.5)
+            for item in page.json["products"]:
+                products.append(item["id"])
 
-            self.origin = GoodsOfhQuery(query, products)
+            page_number += 1
 
-        finally:
-            web_page.quit()
+        self.origin = GoodsOfhQuery(query, products)
 
         return self.origin.print()
 
     @staticmethod
-    def new(query: str) -> WildberriesGoods:
-        return WildberriesGoods(GoodsOfhQuery(query, []))
+    def new(query: str, x_wbaas_token: str) -> WildberriesGoods:
+        return WildberriesGoods(GoodsOfhQuery(query, []), x_wbaas_token)

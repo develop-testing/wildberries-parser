@@ -1,6 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
-from DrissionPage import ChromiumPage, ChromiumOptions, SessionPage, SessionOptions  # type: ignore
+from DrissionPage import SessionPage  # type: ignore
 from time import sleep
 
 from .products import Products
