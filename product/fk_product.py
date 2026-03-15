@@ -10,7 +10,7 @@ from .product import Product
 
 @dataclass(slots=True, frozen=True)
 class FakeProduct(Products):
-    origin: int
+    origin: Products
 
     def print(self) -> ProductData:
         data = self.origin.print()

@@ -1,0 +1,26 @@
+{
+    "articul": "869780",
+    "name": "Фейковый товар 85",
+    "descr": "Описание фейкового товара для тестирования",
+    "images": [
+        "fake_img1.jpg",
+        "fake_img2.jpg"
+    ],
+    "characters": [
+        "характеристика 1",
+        "характеристика 2"
+    ],
+    "raiting": 5,
+    "reviews_count": 497,
+    "link": "https://fake-shop.ru/product/4264",
+    "price": "2751 руб",
+    "seller_name": "Фейковый продавец",
+    "seller_link": "https://fake-shop.ru/seller/26",
+    "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+    ],
+    "quantity": 5
+}
