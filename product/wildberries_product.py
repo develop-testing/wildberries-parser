@@ -93,17 +93,18 @@ class WildberriesProduct(Products):
                 0,
             )
         )
-        data.name = first_data["imt_name"]
-        data.descr = first_data["description"]
+        data.name = first_data.get("imt_name", "")
+        data.descr = first_data.get("description", "")
         data.images = images
-        data.characters = first_data["options"]
-        data.raiting = int(second_data["products"][0]["reviewRating"])
-        data.reviews_count = int(second_data["products"][0]["nmFeedbacks"])
+        data.characters = first_data.get("options", [{}])
+        data.raiting = int(second_data.get("products", [{}])[0].get("reviewRating", 0))
+        data.reviews_count = int(second_data.get("products", [{}])[0].get("nmFeedbacks", 0))
         data.link = f"https://www.wildberries.ru/catalog/{data.articul}/detail.aspx"
         data.seller_name = (first_data.get("selling") or {}).get("brand_name") or ""
         data.seller_link = f"https://www.wildberries.ru/brands/{data.seller_name}"
-        data.sizes = [size["name"] for size in second_data["products"][0]["sizes"]]
-        data.quantity = int(second_data["products"][0]["totalQuantity"])
+        data.sizes = [size.get("name", "") for size in second_data.get("products", [{}])[0].get("sizes", [])]
+        data.quantity = int(second_data.get("products", [{}])[0].get("totalQuantity", 0))
+
 
         return data
 
