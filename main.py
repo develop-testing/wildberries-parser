@@ -69,10 +69,10 @@ class WildberriesCatalog:
                 result = [item for item in result if item]
 
                 for product_print in result:
-                    if (
-                        float(product_print.raiting) < 4.5
-                        and int(product_print.price) < 10000
-                    ):
+                    price = product_print.price or 0
+                    raiting = product_print.raiting or 0
+
+                    if (float(raiting) < 4.5 and int(price) < 10000):
                         second_products.append(product_print)
 
                 main_products.extend(result)
