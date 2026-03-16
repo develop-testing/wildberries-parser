@@ -20,7 +20,7 @@ from data_table.console_log_data_table import ConsoleLogDataTable
 
 
 @dataclass(frozen=True, slots=True)
-class WildberriesCatalog:
+class WildberriesApp:
     main_table_path: str
     second_table_path: str
     x_wbaas_token: str
@@ -106,7 +106,7 @@ class WildberriesCatalog:
         )
 
 
-WildberriesCatalog(
+WildberriesApp(
     "result/all_product.xlsx",
     "result/filtered_product.xlsx",
     "1.1000.3c0234109f2f4703b35e7303f1c59d5a.MTV8OTUuMjYuNjQuMjI5fE1vemlsbGEvNS4wIChYMTE7IExpbnV4IHg4Nl82NDsgcnY6MTQwLjApIEdlY2tvLzIwMTAwMTAxIEZpcmVmb3gvMTQwLjB8MTc3NDYwNzU0MHxyZXVzYWJsZXwyfGV5Sm9ZWE5vSWpvaUluMD18MHwzfDE3NzQwMDI3NDB8MQ==.MEQCIHbC2hNqZY7t0TB3PIRdJ9DUJAcCfL5S7hnyMmFToN9dAiA51lbY7zSowsJJqAz8UZFqWDbdHsNgYWcZ2uY1vQ6v3A==",
