@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Маркетплейс | Минимализм</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000000;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #ffffff;
+            line-height: 1.4;
+            padding: 2rem 1rem 3rem 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* поисковый блок — строго по центру */
+        .search-section {
+            width: 100%;
+            max-width: 720px;
+            margin: 0 auto 2rem auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* две кнопки над строкой — центр */
+        .platform-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .platform-btn {
+            background: transparent;
+            border: 1px solid #ffffff;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.5rem 1.6rem;
+            border-radius: 100px;
+            font-family: inherit;
+            letter-spacing: 0.3px;
+            opacity: 0.9;
+            cursor: default;
+        }
+
+        /* поисковая строка как у гугла — по центру */
+        .search-wrapper {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            border: 1px solid #ffffff;
+            border-radius: 48px;
+            background: #000000;
+        }
+
+        .search-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 0.9rem 1.2rem;
+            font-size: 1rem;
+            color: #ffffff;
+            font-family: inherit;
+            outline: none;
+            border-radius: 48px 0 0 48px;
+        }
+
+        .search-input::placeholder {
+            color: #aaaaaa;
+            font-weight: 400;
+        }
+
+        .submit-btn {
+            background: transparent;
+            border: none;
+            border-left: 1px solid #ffffff;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.9rem 1.8rem;
+            border-radius: 0 48px 48px 0;
+            font-family: inherit;
+            white-space: nowrap;
+            cursor: default;
+            opacity: 0.9;
+        }
+
+        /* таблица — с центрированием внутри контейнера */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 1.5rem;
+            border: 1px solid #ffffff;
+            border-radius: 24px;
+            background: #000000;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            min-width: 880px;
+        }
+
+        .data-table th,
+        .data-table td {
+            border-bottom: 1px solid #2c2c2c;
+            padding: 1rem 0.9rem;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        .data-table th {
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.3px;
+            color: #f0f0f0;
+            border-bottom: 1px solid #ffffff;
+        }
+
+        .data-table td {
+            color: #eaeaea;
+        }
+
+        .product-img {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 8px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            display: block;
+        }
+
+        .rating-stars {
+            color: #ffc107;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .seller-name {
+            font-weight: 500;
+        }
+
+        .note {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #6c6c6c;
+            margin-top: 1.8rem;
+            border-top: 1px solid #222;
+            padding-top: 1.2rem;
+            width: 100%;
+        }
+
+        /* ========== МОБИЛЬНАЯ ВЕРСИЯ ========== */
+        @media (max-width: 768px) {
+            body {
+                padding: 1.2rem 0.8rem 2rem 0.8rem;
+            }
+
+            .container {
+                max-width: 100%;
+            }
+
+            .search-section {
+                max-width: 100%;
+                padding: 0 0.5rem;
+            }
+
+            .platform-buttons {
+                gap: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .platform-btn {
+                padding: 0.4rem 1.2rem;
+                font-size: 0.85rem;
+            }
+
+            .search-wrapper {
+                width: 100%;
+            }
+
+            .search-input {
+                padding: 0.7rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .submit-btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .table-container {
+                border-radius: 16px;
+                margin-top: 1.2rem;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 0.7rem 0.5rem;
+                font-size: 0.7rem;
+            }
+
+            .data-table th {
+                font-size: 0.7rem;
+            }
+
+            .product-img {
+                width: 36px;
+                height: 36px;
+            }
+
+            .rating-stars {
+                font-size: 0.7rem;
+                letter-spacing: 0.5px;
+            }
+
+            .note {
+                font-size: 0.6rem;
+                margin-top: 1.2rem;
+                padding-top: 0.8rem;
+            }
+        }
+
+        /* для очень маленьких экранов (до 480px) */
+        @media (max-width: 480px) {
+            .platform-btn {
+                padding: 0.35rem 1rem;
+                font-size: 0.75rem;
+            }
+
+            .search-input {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .submit-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 0.6rem 0.4rem;
+                font-size: 0.65rem;
+            }
+
+            .product-img {
+                width: 32px;
+                height: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="search-section">
+            <!-- 2 кнопки: вайлдбериес и озон -->
+            <div class="platform-buttons">
+                <button class="platform-btn">Wildberries</button>
+                <button class="platform-btn">Ozon</button>
+            </div>
+
+            <!-- поисковая строка + кнопка отправить -->
+            <div class="search-wrapper">
+                <input type="text" class="search-input" placeholder="Введите артикул, название или бренд...">
+                <button class="submit-btn">Отправить</button>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Артикул</th>
+                        <th>Название</th>
+                        <th>Цена</th>
+                        <th>Картинка</th>
+                        <th>Название селлера</th>
+                        <th>Остатки по товару</th>
+                        <th>Рейтинг</th>
+                        <th>Количество отзывов</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Wildberries товары -->
+                    <tr>
+                        <td>WB-1001</td>
+                        <td><strong>Смартфон Alpha X</strong></td>
+                        <td>29 990 ₽</td>
+                        <td><img src="https://picsum.photos/id/0/80/80" alt="товар" class="product-img"></td>
+                        <td class="seller-name">TechStore Russia</td>
+                        <td>47 шт.</td>
+                        <td><span class="rating-stars">★★★★☆ 4.7</span></td>
+                        <td>312</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
