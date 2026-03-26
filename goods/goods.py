@@ -14,5 +14,5 @@ class Goods(Protocol):
     def query(self) -> str:
         pass
 
-    def print(self) -> GoodsPrint:
+    def print(self, page_start: int, page_end: int) -> GoodsPrint:
         pass
