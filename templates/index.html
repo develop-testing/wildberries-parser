@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Маркетплейс | Минимализм</title>
+    <title>Парсинг маркетплейсов</title>
     <style>
         * {
             margin: 0;
@@ -14,7 +14,7 @@
 
         body {
             background-color: #000000;
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'monospace';
             color: #ffffff;
             line-height: 1.4;
             padding: 2rem 1rem 3rem 1rem;
@@ -61,11 +61,22 @@
             font-size: 1rem;
             font-weight: 500;
             padding: 0.5rem 1.6rem;
-            border-radius: 100px;
+            border-radius: 0;
             font-family: inherit;
             letter-spacing: 0.3px;
             opacity: 0.9;
             cursor: default;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .platform-btn input {
+            margin: 0;
+            width: 16px;
+            height: 16px;
+            cursor: default;
+            accent-color: #ffffff;
         }
 
         /* поисковая строка как у гугла — по центру */
@@ -74,7 +85,7 @@
             align-items: center;
             width: 100%;
             border: 1px solid #ffffff;
-            border-radius: 48px;
+            border-radius: 0;
             background: #000000;
         }
 
@@ -87,7 +98,7 @@
             color: #ffffff;
             font-family: inherit;
             outline: none;
-            border-radius: 48px 0 0 48px;
+            border-radius: 0;
         }
 
         .search-input::placeholder {
@@ -103,7 +114,7 @@
             font-size: 1rem;
             font-weight: 500;
             padding: 0.9rem 1.8rem;
-            border-radius: 0 48px 48px 0;
+            border-radius: 0;
             font-family: inherit;
             white-space: nowrap;
             cursor: default;
@@ -116,7 +127,7 @@
             overflow-x: auto;
             margin-top: 1.5rem;
             border: 1px solid #ffffff;
-            border-radius: 24px;
+            border-radius: 0;
             background: #000000;
         }
 
@@ -151,7 +162,7 @@
             width: 48px;
             height: 48px;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 0;
             background: #1a1a1a;
             border: 1px solid #333;
             display: block;
@@ -218,7 +229,7 @@
             }
 
             .table-container {
-                border-radius: 16px;
+                border-radius: 0;
                 margin-top: 1.2rem;
             }
 
@@ -282,19 +293,22 @@
 
 <body>
     <div class="container">
-        <div class="search-section">
-            <!-- 2 кнопки: вайлдбериес и озон -->
+        <form action="/" class="search-section">
             <div class="platform-buttons">
-                <button class="platform-btn">Wildberries</button>
-                <button class="platform-btn">Ozon</button>
+                <label class="platform-btn">
+                    <span>Wildberries</span>
+                    <input name="marketplace" type="radio" value="wildberries">
+                </label>
+                <label class="platform-btn">
+                    <span>Ozon</span>
+                    <input name="marketplace" type="radio" value="ozon">
+                </label>
             </div>
-
-            <!-- поисковая строка + кнопка отправить -->
             <div class="search-wrapper">
-                <input type="text" class="search-input" placeholder="Введите артикул, название или бренд...">
-                <button class="submit-btn">Отправить</button>
+                <input type="text" class="search-input" placeholder="Введите запрос">
+                <button type="submit" class="submit-btn">Отправить</button>
             </div>
-        </div>
+        </form>
 
         <div class="table-container">
             <table class="data-table">
@@ -311,17 +325,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Wildberries товары -->
+                    {{#products}}
                     <tr>
-                        <td>WB-1001</td>
-                        <td><strong>Смартфон Alpha X</strong></td>
-                        <td>29 990 ₽</td>
-                        <td><img src="https://picsum.photos/id/0/80/80" alt="товар" class="product-img"></td>
-                        <td class="seller-name">TechStore Russia</td>
-                        <td>47 шт.</td>
-                        <td><span class="rating-stars">★★★★☆ 4.7</span></td>
-                        <td>312</td>
+                        <td>{{articul}}</td>
+                        <td><strong>{{name}}</strong></td>
+                        <td>{{price}}</td>
+                        <td><img src="{{image}}" alt="товар" class="product-img"></td>
+                        <td class="seller-name">{{seller}}</td>
+                        <td>{{quantity}}</td>
+                        <td><span class="rating-stars">{{raiting}}</span></td>
+                        <td>{{reviews}}</td>
                     </tr>
+                    {{/products}}
                 </tbody>
             </table>
         </div>

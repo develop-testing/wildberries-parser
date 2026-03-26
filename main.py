@@ -1,26 +1,40 @@
+from __future__ import annotations
+import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
-import mstache
-import os
-import uvicorn
+from dataclasses import dataclass
+from html_page.mstache_html_page import MstacheHtmlPage
+from product.fk_product import FakeProduct
+
 
 app = FastAPI()
 
-def render_template(template_name: str, context: dict) -> str:
-    template_path = os.path.join("templates", template_name)
-    with open(template_path, "r", encoding="utf-8") as f:
-        template = f.read()
-    return mstache.render(template, context)
-
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
-    context = {
-        "title": "Главная страница",
-        "items": ["Товар 1", "Товар 2", "Товар 3"],
-        "user": {"name": "Иван", "is_admin": True}
-    }
-    return render_template("index.html", context)
+    products = [
+        FakeProduct.new(1),
+        FakeProduct.new(2),
+        FakeProduct.new(3),
+        FakeProduct.new(4),
+    ]
+
+    page = MstacheHtmlPage.new('index.html')
+
+    for product in products:
+        data = product.print()
+
+        page = page.with_data('product', {
+            "articul": data.articul,
+            "name": data.name,
+            "price": data.price,
+            "image": data.images[0],
+            "seller": data.seller_name,
+            "quantity": data.quantity,
+            "raiting": data.raiting,
+            "reviews": data.reviews_count,
+        })
+
+    return page.display()
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="127.0.0.1", port=5000, reload=True)
