@@ -19,8 +19,6 @@ from data_table.data_tables import DataTableRow
 from data_table.console_log_data_table import ConsoleLogDataTable
 
 
-
-
 @dataclass(frozen=True, slots=True)
 class WildberriesApp:
     main_table_path: str
@@ -44,7 +42,7 @@ class WildberriesApp:
             )
         )
 
-        printout = goods.print()
+        printout = goods.print(1, 999)
 
         main_products = []
 
@@ -74,7 +72,7 @@ class WildberriesApp:
                     price = product_print.price or 0
                     raiting = product_print.raiting or 0
 
-                    if (float(raiting) < 4.5 and int(price) < 10000):
+                    if float(raiting) < 4.5 and int(price) < 10000:
                         second_products.append(product_print)
 
                 main_products.extend(result)
@@ -88,7 +86,7 @@ class WildberriesApp:
                 descr=printout.descr,
                 images=", ".join(printout.images),
                 characters=", ".join(
-                    f"{item.get('name', 'Неизвестно')}: {item.get('value', '-')}" 
+                    f"{item.get('name', 'Неизвестно')}: {item.get('value', '-')}"
                     for item in printout.characters
                 ),
                 seller_name=printout.seller_name,

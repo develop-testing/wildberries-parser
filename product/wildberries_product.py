@@ -3,15 +3,20 @@ from dataclasses import dataclass
 from DrissionPage import SessionPage  # type: ignore
 from time import sleep
 from tenacity import retry, stop_after_attempt, wait_fixed, retry_if_exception_type
-import requests # type: ignore
+import requests  # type: ignore
+from typing import Any
+
 
 from .products import Products
 from .products import ProductData
 from .product import Product
 
 
-def log_retry(retry_state):
-    print(f"retry number {retry_state.attempt_number} after error: {retry_state.outcome.exception()}")
+def log_retry(retry_state: Any) -> None:
+    print(
+        f"retry number {retry_state.attempt_number} after error: {retry_state.outcome.exception()}"
+    )
+
 
 @dataclass(slots=True, frozen=True)
 class WildberriesProduct(Products):
@@ -19,7 +24,9 @@ class WildberriesProduct(Products):
     x_wbaas_token: str
 
     @retry(
-        retry=retry_if_exception_type((requests.exceptions.RequestException, ConnectionError)),
+        retry=retry_if_exception_type(
+            (requests.exceptions.RequestException, ConnectionError)
+        ),
         stop=stop_after_attempt(3),
         wait=wait_fixed(2),
         before_sleep=log_retry,
@@ -98,13 +105,19 @@ class WildberriesProduct(Products):
         data.images = images
         data.characters = first_data.get("options", [{}])
         data.raiting = int(second_data.get("products", [{}])[0].get("reviewRating", 0))
-        data.reviews_count = int(second_data.get("products", [{}])[0].get("nmFeedbacks", 0))
+        data.reviews_count = int(
+            second_data.get("products", [{}])[0].get("nmFeedbacks", 0)
+        )
         data.link = f"https://www.wildberries.ru/catalog/{data.articul}/detail.aspx"
         data.seller_name = (first_data.get("selling") or {}).get("brand_name") or ""
         data.seller_link = f"https://www.wildberries.ru/brands/{data.seller_name}"
-        data.sizes = [size.get("name", "") for size in second_data.get("products", [{}])[0].get("sizes", [])]
-        data.quantity = int(second_data.get("products", [{}])[0].get("totalQuantity", 0))
-
+        data.sizes = [
+            size.get("name", "")
+            for size in second_data.get("products", [{}])[0].get("sizes", [])
+        ]
+        data.quantity = int(
+            second_data.get("products", [{}])[0].get("totalQuantity", 0)
+        )
 
         return data
 

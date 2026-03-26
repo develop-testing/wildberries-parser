@@ -23,7 +23,7 @@ class FakeGoods(Goods):
             [random.randint(111111, 999999) for i in range(self.limit)],
         )
 
-        return self.origin.print()
+        return self.origin.print(page_start, page_end)
 
     @staticmethod
     def new(query: str, limit: int) -> FakeGoods:

@@ -1,8 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from DrissionPage import SessionPage  # type: ignore
-from promise import Promise
-from time import sleep
 
 from .goods import Goods
 from .goods import GoodsPrint
@@ -60,7 +58,7 @@ class WildberriesGoods(Goods):
             page_number += 1
 
         self.origin = GoodsOfhQuery(query, products)
-        
+
         return self.origin.print(page_start, page_end)
 
     @staticmethod
