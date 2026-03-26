@@ -14,7 +14,10 @@ app = FastAPI()
 
 
 @app.get("/", response_class=HTMLResponse)
-async def home(request: Request, query: str = "", marketplace: list[str] = []) -> str:
+async def home(request: Request) -> str:
+    marketplace = request.query_params.getlist("marketplace")
+    query = request.query_params.get("query", "")
+
     products: list[FakeProduct] = []
 
     if "wildberries" in marketplace:
