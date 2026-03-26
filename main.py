@@ -20,7 +20,7 @@ async def home(request: Request, query = "", marketplace = []):
 
     view_products = products = []
 
-    wb_goods_ids = goods_query.print().products
+    wb_goods_ids = goods_query.print(1,1).products
 
     for id in wb_goods_ids:
         view_products.append(FakeProduct.new(id))

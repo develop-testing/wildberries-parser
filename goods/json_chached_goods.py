@@ -16,9 +16,9 @@ class JsonFileCachedGoods(Goods):
     def query(self) -> str:
         return self.origin.query()
 
-    def print(self) -> GoodsPrint:
+    def print(self, page_start: int, page_end: int) -> GoodsPrint:
         if not os.path.exists(self.file_path):
-            printout = self.origin.print()
+            printout = self.origin.print(page_start, page_end)
 
             with open(self.file_path, "w", encoding="utf-8") as f:
                 json.dump(printout.products, f, ensure_ascii=False)

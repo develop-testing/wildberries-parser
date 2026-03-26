@@ -6,7 +6,7 @@ from time import sleep
 
 from .goods import Goods
 from .goods import GoodsPrint
-from .goods_of_query import GoodsOfhQuery
+from .base_goods import GoodsOfhQuery
 
 
 @dataclass(slots=True)
@@ -21,11 +21,11 @@ class WildberriesGoods(Goods):
     def query(self) -> str:
         return self.origin.query()
 
-    def print(self) -> GoodsPrint:
+    def print(self, page_start: int, page_end: int) -> GoodsPrint:
         query = self.origin.query()
         products = []
-        page_number = 1
-        max_pages = 999
+        page_number = page_start
+        max_pages = page_end
 
         page = SessionPage()
 
@@ -60,8 +60,8 @@ class WildberriesGoods(Goods):
             page_number += 1
 
         self.origin = GoodsOfhQuery(query, products)
-
-        return self.origin.print()
+        
+        return self.origin.print(page_start, page_end)
 
     @staticmethod
     def new(query: str, x_wbaas_token: str) -> WildberriesGoods:
