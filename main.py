@@ -10,6 +10,11 @@ from goods.wildberries_goods import WildberriesGoods
 from temp_auth_token.wb_temp_auth_token import WBTempAuthoToken
 from temp_auth_token.cached_temp_auth_token import CachedTempAuthoToken
 
+
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import threading
+
+
 app = FastAPI()
 
 
@@ -42,23 +47,27 @@ async def home(request: Request) -> str:
 
     html_page = MstacheHtmlPage.new("index.html")
 
-    for product in products:
+    def process_product(product):
         data = product.print()
+        return {
+            "link": data.link,
+            "articul": data.articul,
+            "name": data.name,
+            "price": data.price,
+            "image": data.images[0] if data.images else "",
+            "seller": data.seller_name,
+            "quantity": data.quantity,
+            "raiting": data.raiting,
+            "reviews": data.reviews_count,
+            "source": data.source
+        }
+
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        futures = [executor.submit(process_product, product) for product in products]
         
-        html_page = html_page.with_data(
-            "product",
-            {
-                "link": data.link,
-                "articul": data.articul,
-                "name": data.name,
-                "price": data.price,
-                "image": data.images[0] if data.images else "",
-                "seller": data.seller_name,
-                "quantity": data.quantity,
-                "raiting": data.raiting,
-                "reviews": data.reviews_count,
-            },
-        )
+        for future in as_completed(futures):
+            product_data = future.result()
+            html_page = html_page.with_data("product", product_data)
     
     def build_url(page, marketplace, query):
         params = [f"page={page}", f"query={query}"]

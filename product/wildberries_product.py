@@ -82,13 +82,17 @@ class WildberriesProduct(Products):
             url = f"https://mns-basket-cdn-02.geobasket.net/vol{vol_num}/part{part_num}/{articul_str}/images/big/{image_counter}.webp"
 
             result = page.session.head(url)
-
+            
             if result.status_code == 200:
                 images.append(url)
                 image_counter += 1
                 continue
-
-            break
+            elif result.status_code == 307:
+                images.append(result.headers.get('Location'))
+                image_counter += 1
+                continue
+            else:
+                break
 
         data.price = str(
             next(
@@ -118,6 +122,7 @@ class WildberriesProduct(Products):
         data.quantity = int(
             second_data.get("products", [{}])[0].get("totalQuantity", 0)
         )
+        data.source = "wildberries"
 
         return data
 

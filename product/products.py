@@ -22,6 +22,7 @@ class ProductData:
     seller_link: str
     sizes: list[str]
     quantity: int
+    source: str
 
     @staticmethod
     def empty() -> ProductData:
@@ -39,6 +40,7 @@ class ProductData:
             seller_link="",
             sizes=[],
             quantity=0,
+            source=""
         )
 
 

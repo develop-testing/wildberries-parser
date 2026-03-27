@@ -31,6 +31,7 @@ class FakeProduct(Products):
         data.seller_link = "https://fake-shop.ru/seller/" + str(random.randint(1, 100))
         data.sizes = ["S", "M", "L", "XL"]
         data.quantity = random.randint(0, 50)
+        data.source = "fake"
 
         return data
 
