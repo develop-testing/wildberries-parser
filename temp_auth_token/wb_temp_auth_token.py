@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from DrissionPage import ChromiumPage, ChromiumOptions  # type: ignore[import-untyped]
+from time import sleep
 
 from .temp_auth_tokens import TempAuthoTokens
 from .temp_auth_token import TempAuthoToken
@@ -12,11 +13,15 @@ class WBTempAuthoToken(TempAuthoTokens):
     def value(self) -> str:
         if not self.origin:
             co = ChromiumOptions()
-            co.headless()  # Enable headless mode
-            co.set_argument("--disable-gpu")
-            co.set_argument("--no-sandbox")
+            co.set_argument("--headless=new")  # New headless mode (better stealth)
             co.set_argument("--window-size=1920,1080")
             co.set_argument("--disable-blink-features=AutomationControlled")
+            co.set_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+
+            # Disable automation flags
+            co.set_argument("--disable-features=ChromeWhatsNewUI,IsolateOrigins,site-per-process")
+            co.set_argument("--disable-web-security")
+            co.set_argument("--disable-extensions")
 
             page = ChromiumPage(co)
 
@@ -37,16 +42,21 @@ class WBTempAuthoToken(TempAuthoTokens):
             )
 
             page.get("https://www.wildberries.ru/")
+            page.wait.load_start()
 
             cookies = page.cookies()
 
             value = ""
+
+            print(cookies)
 
             for cookie in cookies:
                 if cookie["name"] == "x_wbaas_token":
                     value = cookie["value"]
 
             self.origin = TempAuthoToken(value)
+
+            page.quit()
 
         return self.origin.value()
 
