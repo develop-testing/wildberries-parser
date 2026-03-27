@@ -29,15 +29,26 @@ class GoodsOfhQuery(Goods):
     def query(self) -> str:
         return self.query_string
 
-    def print(self, page_start: int, page_end: int) -> GoodsPrint:
-        if page_start > 999 or page_end > 999:
-            raise ValueError("page limits is too long")
-
-        if page_start < 1 or page_end < 1:
-            raise ValueError("page limits is too small")
-
+    def fetch(self, from_number: int, count: int) -> GoodsPrint:
+        if from_number > 999 or count > 999:
+            raise ValueError("from_number or count is too long")
+        
+        if from_number < 0 or count < 0:
+            raise ValueError("from_number or count is too small")
+        
+        if from_number >= len(self.products):
+            return GoodsPrint(
+                query=self.query(),
+                count=0,
+                products=[]
+            )
+        
+        result = self.products[from_number:from_number + count]
+        
         printout = GoodsPrint(
-            query=self.query(), count=len(self.products), products=self.products
+            query=self.query(),
+            count=len(result),
+            products=result
         )
-
+        
         return printout

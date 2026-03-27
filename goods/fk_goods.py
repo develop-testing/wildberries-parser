@@ -17,13 +17,13 @@ class FakeGoods(Goods):
     def query(self) -> str:
         return self.origin.query()
 
-    def print(self, page_start: int, page_end: int) -> GoodsPrint:
+    def fetch(self, from_number: int, count: int) -> GoodsPrint:
         self.origin = GoodsOfhQuery(
             self.origin.query(),
             [random.randint(111111, 999999) for i in range(self.limit)],
         )
 
-        return self.origin.print(page_start, page_end)
+        return self.origin.fetch(from_number, count)
 
     @staticmethod
     def new(query: str, limit: int) -> FakeGoods:

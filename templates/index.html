@@ -179,6 +179,60 @@
             font-weight: 500;
         }
 
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            padding: 0.5rem 0;
+        }
+
+        .pagination-btn {
+            background: transparent;
+            border: 1px solid #ffffff;
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            cursor: default;
+            opacity: 0.8;
+            min-width: 70px;
+        }
+
+        .page-numbers {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .page-number {
+            background: transparent;
+            border: 1px solid #ffffff;
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 0.85rem;
+            padding: 0.5rem 0.8rem;
+            cursor: default;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .page-number.active {
+            background: #ffffff;
+            color: #000000;
+            border-color: #ffffff;
+            font-weight: bold;
+        }
+
+        .pagination-info {
+            color: #aaa;
+            font-size: 0.75rem;
+            margin-left: 1rem;
+        }
+
         .note {
             text-align: center;
             font-size: 0.7rem;
@@ -253,6 +307,12 @@
                 letter-spacing: 0.5px;
             }
 
+            .pagination-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.75rem;
+                min-width: 60px;
+            }
+
             .note {
                 font-size: 0.6rem;
                 margin-top: 1.2rem;
@@ -287,6 +347,12 @@
                 width: 32px;
                 height: 32px;
             }
+
+            .pagination-btn {
+                padding: 0.3rem 0.6rem;
+                min-width: 50px;
+                font-size: 0.7rem;
+            }
         }
     </style>
 </head>
@@ -294,6 +360,7 @@
 <body>
     <div class="container">
         <form action="/" class="search-section">
+            <input type="hidden" name="page" value="1">
             <div class="platform-buttons">
                 <label class="platform-btn">
                     <span>Wildberries</span>
@@ -339,6 +406,10 @@
                     {{/products}}
                 </tbody>
             </table>
+        </div>
+        <div class="pagination">
+            <button class="pagination-btn" disabled>‹ Назад</button>
+            <button class="pagination-btn">Вперёд ›</button>
         </div>
     </div>
 </body>

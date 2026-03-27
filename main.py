@@ -17,34 +17,42 @@ app = FastAPI()
 async def home(request: Request) -> str:
     marketplace = request.query_params.getlist("marketplace")
     query = request.query_params.get("query", "")
+    page = request.query_params.get("page", "")
+    limit = 10
+
+    temp_token = CachedTempAuthoToken.new(
+        WBTempAuthoToken.new(),
+        "cache/wb_temp_auth_token.txt",
+        86400
+    )
 
     products: list[FakeProduct] = []
 
     if "wildberries" in marketplace:
         goods_query = WildberriesGoods.new(
             query,
-            CachedTempAuthoToken.new(
-                WBTempAuthoToken.new(), "cache/wb_temp_auth_token.txt", 30
-            ).value(),
+            temp_token.value()
         )
 
-        wb_goods_ids = goods_query.print(1, 1).products
+        wb_goods_ids = goods_query.fetch(120, 10).products
 
         for id in wb_goods_ids:
-            products.append(FakeProduct.new(id))
+            products.append(
+                WildberriesProduct.new(id, temp_token.value())
+            )
 
     page = MstacheHtmlPage.new("index.html")
 
     for product in products:
         data = product.print()
-
+        
         page = page.with_data(
             "product",
             {
                 "articul": data.articul,
                 "name": data.name,
                 "price": data.price,
-                "image": data.images[0],
+                "image": data.images[0] if data.images else "",
                 "seller": data.seller_name,
                 "quantity": data.quantity,
                 "raiting": data.raiting,
