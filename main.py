@@ -49,6 +49,7 @@ async def home(request: Request) -> str:
         page = page.with_data(
             "product",
             {
+                "link": data.link,
                 "articul": data.articul,
                 "name": data.name,
                 "price": data.price,

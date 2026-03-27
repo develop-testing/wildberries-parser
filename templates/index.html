@@ -12,6 +12,11 @@
             box-sizing: border-box;
         }
 
+        a {
+            color: #fff;
+            text-transform: underline;
+        }
+
         body {
             background-color: #000000;
             font-family: 'monospace';
@@ -395,7 +400,7 @@
                     {{#products}}
                     <tr>
                         <td>{{articul}}</td>
-                        <td><strong>{{name}}</strong></td>
+                        <td><a href="{{link}}">{{name}}</a></td>
                         <td>{{price}}</td>
                         <td><img src="{{image}}" alt="товар" class="product-img"></td>
                         <td class="seller-name">{{seller}}</td>
