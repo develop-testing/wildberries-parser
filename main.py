@@ -17,8 +17,7 @@ app = FastAPI()
 async def home(request: Request) -> str:
     marketplace = request.query_params.getlist("marketplace")
     query = request.query_params.get("query", "")
-    page = request.query_params.get("page", "")
-    limit = 10
+    page = int(request.query_params.get("page", 0))
 
     temp_token = CachedTempAuthoToken.new(
         WBTempAuthoToken.new(),
@@ -34,19 +33,19 @@ async def home(request: Request) -> str:
             temp_token.value()
         )
 
-        wb_goods_ids = goods_query.fetch(120, 10).products
+        wb_goods_ids = goods_query.fetch(page * 10, 10).products
 
         for id in wb_goods_ids:
             products.append(
                 WildberriesProduct.new(id, temp_token.value())
             )
 
-    page = MstacheHtmlPage.new("index.html")
+    html_page = MstacheHtmlPage.new("index.html")
 
     for product in products:
         data = product.print()
         
-        page = page.with_data(
+        html_page = html_page.with_data(
             "product",
             {
                 "link": data.link,
@@ -60,8 +59,32 @@ async def home(request: Request) -> str:
                 "reviews": data.reviews_count,
             },
         )
+    
+    def build_url(page, marketplace, query):
+        params = [f"page={page}", f"query={query}"]
+        
+        if isinstance(marketplace, list):
+            for m in marketplace:
+                params.append(f"marketplace={m}")
+        else:
+            params.append(f"marketplace={marketplace}")
+        
+        return "/?" + "&".join(params)
+    
+    html_page = (
+        html_page
+            .with_data(
+                "prev_url",
+                build_url(page - 1, marketplace, query) if page > 1 else None
+            )
+            .with_data(
+                "next_url",
+                build_url(page + 1, marketplace, query)
+            )
+            .with_data("query", query)
+    )
 
-    return page.display()
+    return html_page.display()
 
 
 if __name__ == "__main__":

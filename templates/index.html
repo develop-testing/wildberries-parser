@@ -204,6 +204,7 @@
             cursor: default;
             opacity: 0.8;
             min-width: 70px;
+            cursor: pointer;
         }
 
         .page-numbers {
@@ -377,7 +378,7 @@
                 </label>
             </div>
             <div class="search-wrapper">
-                <input name="query" type="text" class="search-input" placeholder="Введите запрос">
+                <input name="query" type="text" class="search-input" value="{{query}}" placeholder="Введите запрос">
                 <button type="submit" class="submit-btn">Отправить</button>
             </div>
         </form>
@@ -413,8 +414,10 @@
             </table>
         </div>
         <div class="pagination">
-            <button class="pagination-btn" disabled>‹ Назад</button>
-            <button class="pagination-btn">Вперёд ›</button>
+            <a href="{{prev_url}}" class="pagination-btn {{^prev_url}}disabled{{/prev_url}}"
+                {{^prev_url}}onclick="return false;" {{/prev_url}}>‹ Назад</a>
+            <a href="{{next_url}}" class="pagination-btn {{^next_url}}disabled{{/next_url}}"
+                {{^next_url}}onclick="return false;" {{/next_url}}>Вперёд ›</a>
         </div>
     </div>
 </body>
