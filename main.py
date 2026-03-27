@@ -6,13 +6,13 @@ from dataclasses import dataclass
 from html_page.mstache_html_page import MstacheHtmlPage
 from product.fk_product import FakeProduct
 from product.wildberries_product import WildberriesProduct
+from product.console_log_product import ConsoleLogProduct
 from goods.wildberries_goods import WildberriesGoods
 from temp_auth_token.wb_temp_auth_token import WBTempAuthoToken
 from temp_auth_token.cached_temp_auth_token import CachedTempAuthoToken
 
 
 from concurrent.futures import ThreadPoolExecutor, as_completed
-import threading
 
 
 app = FastAPI()
@@ -23,6 +23,7 @@ async def home(request: Request) -> str:
     marketplace = request.query_params.getlist("marketplace")
     query = request.query_params.get("query", "")
     page = int(request.query_params.get("page", 0))
+    limit = 10
 
     temp_token = CachedTempAuthoToken.new(
         WBTempAuthoToken.new(),
@@ -38,11 +39,13 @@ async def home(request: Request) -> str:
             temp_token.value()
         )
 
-        wb_goods_ids = goods_query.fetch(page * 10, 10).products
+        wb_goods_ids = goods_query.fetch(page * limit, limit).products
 
         for id in wb_goods_ids:
             products.append(
-                WildberriesProduct.new(id, temp_token.value())
+                ConsoleLogProduct.new(
+                    WildberriesProduct.new(id, temp_token.value())
+                )
             )
 
     html_page = MstacheHtmlPage.new("index.html")
@@ -62,7 +65,7 @@ async def home(request: Request) -> str:
             "source": data.source
         }
 
-    with ThreadPoolExecutor(max_workers=10) as executor:
+    with ThreadPoolExecutor(max_workers=5) as executor:
         futures = [executor.submit(process_product, product) for product in products]
         
         for future in as_completed(futures):

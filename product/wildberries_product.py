@@ -74,7 +74,7 @@ class WildberriesProduct(Products):
 
         second_data = page.json
 
-        max_images = 99
+        max_images = 30
         image_counter = 1
         images = []
 
@@ -82,7 +82,7 @@ class WildberriesProduct(Products):
             url = f"https://mns-basket-cdn-02.geobasket.net/vol{vol_num}/part{part_num}/{articul_str}/images/big/{image_counter}.webp"
 
             result = page.session.head(url)
-            
+
             if result.status_code == 200:
                 images.append(url)
                 image_counter += 1
