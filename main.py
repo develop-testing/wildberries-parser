@@ -20,10 +20,15 @@ app = FastAPI()
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request) -> str:
-    marketplace = request.query_params.getlist("marketplace")
     query = request.query_params.get("query", "")
+    
+    if not query:
+        html_page = MstacheHtmlPage.new("index.html")
+        html_page = html_page.with_data("query", "")
+        return html_page.display()
+    
     page = int(request.query_params.get("page", 0))
-    limit = 10
+    limit = 8
 
     temp_token = CachedTempAuthoToken.new(
         WBTempAuthoToken.new(),
@@ -33,20 +38,19 @@ async def home(request: Request) -> str:
 
     products: list[FakeProduct] = []
 
-    if "wildberries" in marketplace:
-        goods_query = WildberriesGoods.new(
-            query,
-            temp_token.value()
-        )
+    goods_query = WildberriesGoods.new(
+        query,
+        temp_token.value()
+    )
 
-        wb_goods_ids = goods_query.fetch(page * limit, limit).products
+    wb_goods_ids = goods_query.fetch(page * limit, limit).products
 
-        for id in wb_goods_ids:
-            products.append(
-                ConsoleLogProduct.new(
-                    WildberriesProduct.new(id, temp_token.value())
-                )
+    for id in wb_goods_ids:
+        products.append(
+            ConsoleLogProduct.new(
+                WildberriesProduct.new(id, temp_token.value())
             )
+        )
 
     html_page = MstacheHtmlPage.new("index.html")
 
@@ -72,26 +76,18 @@ async def home(request: Request) -> str:
             product_data = future.result()
             html_page = html_page.with_data("product", product_data)
     
-    def build_url(page, marketplace, query):
-        params = [f"page={page}", f"query={query}"]
-        
-        if isinstance(marketplace, list):
-            for m in marketplace:
-                params.append(f"marketplace={m}")
-        else:
-            params.append(f"marketplace={marketplace}")
-        
-        return "/?" + "&".join(params)
-    
+    def build_url(page, query):
+        return f"/?page={page}&query={query}"
+
     html_page = (
         html_page
             .with_data(
                 "prev_url",
-                build_url(page - 1, marketplace, query) if page > 1 else None
+                build_url(page - 1, query) if page > 1 else None
             )
             .with_data(
                 "next_url",
-                build_url(page + 1, marketplace, query)
+                build_url(page + 1, query)
             )
             .with_data("query", query)
     )

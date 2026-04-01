@@ -45,7 +45,7 @@ class WildberriesGoods(Goods):
             json_result = page.json
 
             items_on_page = len(json_result["products"])
-            
+
             start_page = from_number // items_on_page + 1
             end_page = (from_number + count - 1) // items_on_page + 1
             page_num = start_page
@@ -53,10 +53,8 @@ class WildberriesGoods(Goods):
             start_index = from_number % items_on_page
             end_index = (from_number + count - 1) % items_on_page + 1
 
-            print(page_num)
-
             while page_num <= end_page:
-                page.get(f"https://www.wildberries.ru/__internal/u-search/exactmatch/ru/common/v18/search?ab_testing=false&appType=1&curr=rub&dest=-5818883&hide_vflags=4294967296&lang=ru&page=${page_num}&query=${query}&resultset=catalog&sort=popular&spp=30&suppressSpellcheck=false")
+                page.get(f"https://www.wildberries.ru/__internal/u-search/exactmatch/ru/common/v18/search?ab_testing=false&appType=1&curr=rub&dest=-5818883&hide_vflags=4294967296&lang=ru&page={page_num}&query={query}&resultset=catalog&sort=popular&spp=30&suppressSpellcheck=false")
                 
                 json_result = page.json
                 page_products = json_result.get("products", [])
